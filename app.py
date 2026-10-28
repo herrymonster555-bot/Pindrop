@@ -7,7 +7,7 @@ import time
 from pathlib import Path
 from urllib.parse import urlparse
 
-from flask import Flask, jsonify, request, send_file, render_template
+from flask import Flask, jsonify, request, send_file, render_template, make_response
 import yt_dlp
 
 APP_DIR = Path(__file__).resolve().parent
@@ -16,6 +16,53 @@ DOWNLOAD_DIR.mkdir(exist_ok=True)
 
 app = Flask(__name__, template_folder="templates", static_folder="static")
 app.config["MAX_CONTENT_LENGTH"] = 2 * 1024 * 1024
+
+# Security headers (not overly restrictive; allows Google Fonts, inline styles/scripts for current UI)
+@app.after_request
+def add_security_headers(response):
+    response.headers["X-Content-Type-Options"] = "nosniff"
+    response.headers["X-Frame-Options"] = "SAMEORIGIN"
+    response.headers["Referrer-Policy"] = "strict-origin-when-cross-origin"
+    response.headers["Permissions-Policy"] = "camera=(), microphone=(), geolocation=()"
+    # CSP allows: self, Google Fonts, inline styles/scripts needed by current UI, data: for favicon
+    response.headers["Content-Security-Policy"] = (
+        "default-src 'self'; "
+        "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; "
+        "font-src 'self' https://fonts.gstatic.com data:; "
+        "script-src 'self' 'unsafe-inline'; "
+        "img-src 'self' data: https://pindrop-wowr.onrender.com; "
+        "connect-src 'self'; "
+        "frame-ancestors 'self'"
+    )
+    return response
+
+
+@app.get("/robots.txt")
+def robots_txt():
+    content = (
+        "User-agent: *\n"
+        "Allow: /\n"
+        "Disallow: /api/\n"
+        "\n"
+        "Sitemap: https://pindrop-wowr.onrender.com/sitemap.xml\n"
+    )
+    return make_response(content, 200, {"Content-Type": "text/plain; charset=utf-8"})
+
+
+@app.get("/sitemap.xml")
+def sitemap_xml():
+    content = (
+        '<?xml version="1.0" encoding="UTF-8"?>\n'
+        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+        "  <url>\n"
+        "    <loc>https://pindrop-wowr.onrender.com/</loc>\n"
+        "    <changefreq>weekly</changefreq>\n"
+        "    <priority>1.0</priority>\n"
+        "  </url>\n"
+        "</urlset>\n"
+    )
+    return make_response(content, 200, {"Content-Type": "application/xml; charset=utf-8"})
+
 
 ALLOWED_HOSTS = {
     "pinterest.com", "www.pinterest.com", "m.pinterest.com",

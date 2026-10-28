@@ -4,13 +4,89 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="A simple tool to download publicly accessible Pinterest videos when supported.">
-  <title>PinDrop — Pinterest Video Downloader</title> 
+  <title>PinDrop — Pinterest Video Downloader</title>
+  <link rel="canonical" href="https://pindrop-wowr.onrender.com/">
   <meta name="google-site-verification" content="A6t6A9jDCwMbWHIMSVbCVwLbuvWJqO2DdR1mNtIVQCE" />
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://pindrop-wowr.onrender.com/">
+  <meta property="og:title" content="PinDrop — Pinterest Video Downloader">
+  <meta property="og:description" content="A simple tool to download publicly accessible Pinterest videos when supported.">
+  <meta property="og:image" content="https://pindrop-wowr.onrender.com/static/favicon.png">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:url" content="https://pindrop-wowr.onrender.com/">
+  <meta name="twitter:title" content="PinDrop — Pinterest Video Downloader">
+  <meta name="twitter:description" content="A simple tool to download publicly accessible Pinterest videos when supported.">
+  <meta name="twitter:image" content="https://pindrop-wowr.onrender.com/static/favicon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap"></noscript>
   <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png') }}?v=3">
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "PinDrop",
+    "url": "https://pindrop-wowr.onrender.com/",
+    "description": "A simple tool to download publicly accessible Pinterest videos when supported.",
+    "applicationCategory": "WebApplication",
+    "operatingSystem": "Any",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How do I download a Pinterest video?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Copy the link of a public Pin, paste it into the downloader, and click Download. If the Pin is supported, a preview and download option will appear."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I download images and GIFs too?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "This starter version focuses on media supported by the installed extractor. Image and GIF support depends on the Pin and may need additional implementation."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Why is my link not working?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The Pin may be private, deleted, restricted, or unsupported, or Pinterest may have changed how its media is delivered. Try another public Pin."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I download private Pins?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. PinDrop does not bypass login requirements, privacy controls, or access restrictions."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is PinDrop affiliated with Pinterest?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. PinDrop is an independent project and is not affiliated with or endorsed by Pinterest. Respect copyright and only save or reuse media when you have the necessary rights."
+        }
+      }
+    ]
+  }
+  </script>
 </head>
 <body>
 <header class="site-header">

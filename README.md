@@ -7,7 +7,7 @@
 A clean, simple web app for downloading publicly accessible Pinterest videos when available.
 
 <p>
-  <a href="https://pindrop-0nnk.onrender.com"><img src="https://img.shields.io/badge/🌐_Live_Website-Open_PinDrop-e52d45?style=for-the-badge" alt="Open PinDrop live website"></a>
+  <a href="https://pindrop-wowr.onrender.com"><img src="https://img.shields.io/badge/🌐_Live_Website-Open_PinDrop-e52d45?style=for-the-badge" alt="Open PinDrop live website"></a>
 </p>
 
 <p>
@@ -19,7 +19,7 @@ A clean, simple web app for downloading publicly accessible Pinterest videos whe
 
 **Paste a public Pin link. Download the media when supported. No Pinterest login is requested by PinDrop.**
 
-[**🚀 Open PinDrop Website**](https://pindrop-0nnk.onrender.com)
+[**🚀 Open PinDrop Website**](https://pindrop-wowr.onrender.com)
 
 </div>
 
@@ -142,6 +142,6 @@ Built as a lightweight project to make saving publicly accessible Pins straightf
 
 **PinDrop · Save what inspires you.**
 
-[🌐 Visit PinDrop](https://pindrop-0nnk.onrender.com)
+[🌐 Visit PinDrop](https://pindrop-wowr.onrender.com)
 
 </div>
