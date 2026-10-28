@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A simple tool to download publicly accessible Pinterest videos when supported.">
+  <title>PinDrop — Pinterest Video Downloader</title> 
+  <meta name="google-site-verification" content="A6t6A9jDCwMbWHIMSVbCVwLbuvWJqO2DdR1mNtIVQCE" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<header class="site-header">
+  <a class="brand" href="/" aria-label="PinDrop home"><span class="brand-mark"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5a7.1 7.1 0 0 0-4.3 12.75c.3.23.48.6.48.98v1.1h7.64v-1.1c0-.38.18-.75.48-.98A7.1 7.1 0 0 0 12 2.5Z"/><path d="M9 20h6M10 22h4"/></svg></span><span>Pin<span class="brand-accent">Drop</span></span></a>
+  <nav class="desktop-nav"><a href="#home">Home</a><a href="#how-it-works">How it works</a><a href="#faq">FAQ</a></nav>
+  <a class="header-cta" href="#downloader">Download a Pin <span aria-hidden="true">↗</span></a>
+  <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu" aria-expanded="false">☰</button>
+</header>
+
+<main>
+<section class="hero" id="home">
+  <div class="hero-glow"></div>
+  <div class="eyebrow"><span class="eyebrow-dot"></span> YOUR PINTEREST MEDIA TOOL</div>
+  <h1>Save the Pins<br>that <span>inspire you.</span></h1>
+  <p class="hero-copy">A simple way to save publicly accessible Pinterest videos when available. Paste a link and let PinDrop do the rest.</p>
+
+  <div class="downloader-card" id="downloader">
+    <div class="input-label">Pinterest link</div>
+    <div class="url-row">
+      <div class="url-input-wrap">
+        <svg class="link-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M10 13.5a4.5 4.5 0 0 0 6.36 0l3-3A4.5 4.5 0 0 0 13 4.14l-1.72 1.72"/><path d="M14 10.5a4.5 4.5 0 0 0-6.36 0l-3 3A4.5 4.5 0 0 0 11 19.86l1.72-1.72"/></svg>
+        <input id="pinUrl" type="url" placeholder="Paste your Pinterest link here..." autocomplete="url" spellcheck="false">
+        <button class="paste-btn" id="pasteBtn" type="button"><span>▣</span> Paste</button>
+      </div>
+      <button class="download-btn" id="downloadBtn" type="button"><span class="download-symbol">↓</span> Download</button>
+    </div>
+    <p class="privacy-note"><span>♧</span> No account needed · Only use media you have permission to save</p>
+    <div id="status" class="status" role="status" aria-live="polite" hidden></div>
+    <div id="result" class="result-card" hidden>
+      <img id="previewImage" alt="Pinterest media preview" hidden>
+      <div class="result-info"><span class="result-kicker">PIN FOUND</span><h3 id="resultTitle">Pinterest media</h3><p id="resultMeta">Ready to download</p></div>
+      <button class="result-download" id="actualDownloadBtn" type="button">Download file <span>↓</span></button>
+    </div>
+  </div>
+  <div class="trust-row"><span><b>✓</b> Simple to use</span><span><b>✓</b> No account required</span><span><b>✓</b> Mobile friendly</span></div>
+</section>
+
+<section class="steps-section section-wrap" id="how-it-works">
+  <div class="section-heading"><span class="section-kicker">THREE SIMPLE STEPS</span><h2>From Pin to saved.</h2><p>No complicated steps. Just copy, paste, and save when the media is available.</p></div>
+  <div class="steps-grid">
+    <article class="step-card"><div class="step-icon coral">↗</div><span class="step-number">STEP 01</span><h3>Copy the Pin link</h3><p>Open Pinterest, choose a public Pin, and copy its link from the share menu.</p></article>
+    <article class="step-card"><div class="step-icon peach">⌁</div><span class="step-number">STEP 02</span><h3>Paste it here</h3><p>Paste the URL into the box above. PinDrop will try to find supported media.</p></article>
+    <article class="step-card"><div class="step-icon lilac">↓</div><span class="step-number">STEP 03</span><h3>Preview & download</h3><p>If the Pin is supported and publicly accessible, preview it and download the file.</p></article>
+  </div>
+</section>
+
+<section class="tutorial-section">
+  <div class="tutorial-content">
+    <span class="section-kicker">QUICK GUIDE</span><h2>How to download a<br><span>Pinterest video</span></h2>
+    <p>Find a public Pin, copy its link, then paste it into PinDrop. If the media can be accessed and processed, the preview and download option will appear.</p>
+    <a class="text-link" href="#faq">Read the FAQs <span>→</span></a>
+  </div>
+  <div class="tutorial-visual">
+    <div class="browser-window"><div class="browser-top"><i></i><i></i><i></i><span>pindrop.tools</span></div><div class="browser-body"><div class="mock-pin"><div class="mock-image"><span class="play-icon">▶</span><span class="mock-tag">PIN VIDEO</span></div><div class="mock-lines"><b></b><i></i><i></i></div></div><div class="mock-download"><span class="mock-check">✓</span><div><b>Your Pin is ready</b><small>Preview available</small></div><span class="mock-arrow">↓</span></div></div></div>
+    <div class="floating-chip chip-one">✦ Easy to use</div><div class="floating-chip chip-two">↓ Save your inspiration</div>
+  </div>
+</section>
+
+<section class="seo-section section-wrap">
+  <div class="seo-copy"><span class="section-kicker">ABOUT PINDROP</span><h2>A simpler way to save inspiration.</h2><p>Sometimes you want to keep a video for offline reference, personal inspiration, or a project you are authorized to use. PinDrop provides a straightforward interface for supported, publicly accessible Pinterest media.</p><p>Availability depends on the Pin, Pinterest's current access rules, and the media format. Private, deleted, or unsupported Pins may not work.</p></div>
+  <div class="seo-stat"><div class="stat-icon">✦</div><h3>Made for a smooth experience</h3><p>Clean interface, clear feedback, and a workflow that works on desktop and mobile.</p></div>
+</section>
+
+<section class="faq-section section-wrap" id="faq">
+  <div class="section-heading"><span class="section-kicker">GOT QUESTIONS?</span><h2>Frequently asked questions</h2><p>Quick answers to common questions about saving Pinterest media.</p></div>
+  <div class="faq-list">
+    <details><summary>How do I download a Pinterest video?<span>+</span></summary><p>Copy the link of a public Pin, paste it into the downloader, and click Download. If the Pin is supported, a preview and download option will appear.</p></details>
+    <details><summary>Can I download images and GIFs too?<span>+</span></summary><p>This starter version focuses on media supported by the installed extractor. Image and GIF support depends on the Pin and may need additional implementation.</p></details>
+    <details><summary>Why is my link not working?<span>+</span></summary><p>The Pin may be private, deleted, restricted, or unsupported, or Pinterest may have changed how its media is delivered. Try another public Pin.</p></details>
+    <details><summary>Can I download private Pins?<span>+</span></summary><p>No. PinDrop does not bypass login requirements, privacy controls, or access restrictions.</p></details>
+    <details><summary>Is PinDrop affiliated with Pinterest?<span>+</span></summary><p>No. PinDrop is an independent project and is not affiliated with or endorsed by Pinterest. Respect copyright and only save or reuse media when you have the necessary rights.</p></details>
+  </div>
+</section>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-main"><a class="brand footer-brand" href="/"><span class="brand-mark"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5a7.1 7.1 0 0 0-4.3 12.75c.3.23.48.6.48.98v1.1h7.64v-1.1c0-.38.18-.75.48-.98A7.1 7.1 0 0 0 12 2.5Z"/><path d="M9 20h6M10 22h4"/></svg></span><span>Pin<span class="brand-accent">Drop</span></span></a><p>Save the inspiration you have permission to keep.</p><div class="footer-links"><a href="#home">Home</a><a href="#how-it-works">How it works</a><a href="#faq">FAQ</a></div></div>
+  <div class="footer-bottom"><span>© <span id="year"></span> PinDrop. Independent project.</span><span>Not affiliated with Pinterest.</span></div>
+</footer>
+<script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>
