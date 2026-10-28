@@ -44,6 +44,10 @@
       <div class="result-info"><span class="result-kicker">PIN FOUND</span><h3 id="resultTitle">Pinterest media</h3><p id="resultMeta">Ready to download</p></div>
       <button class="result-download" id="actualDownloadBtn" type="button">Download file <span>↓</span></button>
     </div>
+    <div id="downloadProgress" class="download-progress" hidden aria-live="polite">
+      <div class="progress-label"><span id="progressLabel">Starting download…</span><span id="progressPercent">0%</span></div>
+      <div id="progressTrack" class="progress-track" role="progressbar" aria-label="Download progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span id="progressBar"></span></div>
+    </div>
   </div>
   <div class="trust-row"><span><b>✓</b> Simple to use</span><span><b>✓</b> No account required</span><span><b>✓</b> Mobile friendly</span></div>
 </section>

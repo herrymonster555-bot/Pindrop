@@ -7,6 +7,11 @@ const resultCard = document.getElementById("result");
 const previewImage = document.getElementById("previewImage");
 const resultTitle = document.getElementById("resultTitle");
 const resultMeta = document.getElementById("resultMeta");
+const downloadProgress = document.getElementById("downloadProgress");
+const progressLabel = document.getElementById("progressLabel");
+const progressPercent = document.getElementById("progressPercent");
+const progressBar = document.getElementById("progressBar");
+const progressTrack = document.getElementById("progressTrack");
 let currentUrl = "";
 let busy = false;
 
@@ -21,6 +26,14 @@ function setBusy(value) {
   busy = value;
   downloadBtn.disabled = value;
   downloadBtn.innerHTML = value ? '<span class="spinner"></span> Processing…' : '<span class="download-symbol">↓</span> Download';
+}
+function updateProgress(percent, label) {
+  downloadProgress.hidden = false;
+  progressLabel.textContent = label;
+  progressPercent.textContent = percent === null ? "…" : `${percent}%`;
+  progressBar.style.width = percent === null ? "35%" : `${percent}%`;
+  progressTrack.classList.toggle("indeterminate", percent === null);
+  progressTrack.setAttribute("aria-valuenow", String(percent ?? 0));
 }
 function cleanResult() {
   resultCard.hidden = true;
@@ -61,7 +74,7 @@ async function resolvePin() {
       previewImage.onerror = () => { previewImage.hidden = true; };
     }
     resultCard.hidden = false;
-    setStatus("Media found. Use the button below to download it.", "success");
+    setStatus("Pin found. Click “Download file” below to start the download and see its progress.", "success");
   } catch (error) {
     setStatus(error.message || "Something went wrong. Try another public Pin.", "error");
   } finally {
@@ -97,7 +110,31 @@ actualDownloadBtn.addEventListener("click", async () => {
       const data = type.includes("application/json") ? await response.json() : null;
       throw new Error(data?.error || "Download failed. Try another public Pin.");
     }
-    const blob = await response.blob();
+    downloadProgress.hidden = false;
+    updateProgress(null, "Starting download…");
+    const total = Number(response.headers.get("content-length")) || 0;
+    let blob;
+    if (response.body && response.body.getReader) {
+      const reader = response.body.getReader();
+      const chunks = [];
+      let received = 0;
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        chunks.push(value);
+        received += value.byteLength;
+        if (total > 0) {
+          const percent = Math.min(99, Math.round((received / total) * 100));
+          updateProgress(percent, `Downloading · ${(received / 1048576).toFixed(1)} MB`);
+        } else {
+          updateProgress(null, `Downloaded ${(received / 1048576).toFixed(1)} MB · calculating progress…`);
+        }
+      }
+      blob = new Blob(chunks, { type: response.headers.get("content-type") || "application/octet-stream" });
+    } else {
+      blob = await response.blob();
+      updateProgress(99, "Finishing file…");
+    }
     const disposition = response.headers.get("content-disposition") || "";
     const match = disposition.match(/filename="?([^";]+)"?/i);
     const filename = match ? match[1] : "pinterest-video.mp4";
@@ -109,8 +146,10 @@ actualDownloadBtn.addEventListener("click", async () => {
     a.click();
     a.remove();
     setTimeout(() => URL.revokeObjectURL(objectUrl), 15000);
-    setStatus("Download started. Please respect the creator's rights.", "success");
+    updateProgress(100, "Download ready");
+    setStatus("Your download has started. Please respect the creator’s rights.", "success");
   } catch (error) {
+    downloadProgress.hidden = true;
     setStatus(error.message || "Download failed. Please try another Pin.", "error");
   } finally {
     actualDownloadBtn.disabled = false;

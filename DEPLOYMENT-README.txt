@@ -12,3 +12,9 @@ PinDrop deployment notes
 Security note:
 - Keep .env files, credentials, and private tokens out of GitHub.
 - Free hosting may sleep, limit runtime, or remove temporary files. Large downloads may fail depending on host limits.
+
+
+Recent UI update:
+- The page canvas uses a soft neutral background to avoid stark white corners around the rounded downloader card.
+- Download progress is shown while clicking “Download file” in the result card. A real percentage is shown when the response includes a known content length; otherwise an indeterminate progress animation and received MB are shown.
+- Render health check endpoint: /api/health.
